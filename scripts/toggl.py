@@ -67,6 +67,7 @@ def insert_to_notion():
                     ]
                 id = task.get("id")
                 item["Id"] = id
+                item["标题"] = task.get("description")
                 project_id = task.get("project_id")
                 if project_id:
                     workspace_id = task.get("workspace_id")
@@ -81,10 +82,10 @@ def insert_to_notion():
                     )
                     project = response.json().get("name")
                     emoji, project = split_emoji_from_string(project)
-                    item["标题"] = project
+                    # item["标题"] = project
                     client_id = response.json().get("cid")
-                    #默认金币设置为1
-                    project_properties = {"金币":{"number": 1}}
+                    # 默认金币设置为1
+                    # project_properties = {"金币":{"number": 1}}
                     if client_id:
                         response = requests.get(
                             f"https://api.track.toggl.com/api/v9/workspaces/{workspace_id}/clients/{client_id}",
@@ -110,8 +111,8 @@ def insert_to_notion():
                             properties=project_properties,
                         )
                     ]
-                if task.get("description") is not None:
-                    item["备注"] = task.get("description")
+                # if task.get("description") is not None:
+                #     item["备注"] = task.get("description")
                 properties = utils.get_properties(item, time_properties_type_dict)
                 parent = {
                     "database_id": notion_helper.time_database_id,
