@@ -67,7 +67,6 @@ def insert_to_notion():
                     ]
                 id = task.get("id")
                 item["Id"] = id
-                item["标题"] = task.get("description")
                 project_id = task.get("project_id")
                 if project_id:
                     workspace_id = task.get("workspace_id")
@@ -82,7 +81,13 @@ def insert_to_notion():
                     )
                     project = response.json().get("name")
                     emoji, project = split_emoji_from_string(project)
-                    # item["标题"] = project
+
+                    description = task.get("description")
+                    if description:
+                        item["标题"] = task.get("description")
+                    else:
+                        item["标题"] = project
+                        
                     client_id = response.json().get("cid")
                     # 默认金币设置为1
                     project_properties = {"金币":{"number": 1}}
