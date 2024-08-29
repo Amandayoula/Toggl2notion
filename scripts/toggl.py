@@ -85,7 +85,7 @@ def insert_to_notion():
                     # item["标题"] = project
                     client_id = response.json().get("cid")
                     # 默认金币设置为1
-                    # project_properties = {"金币":{"number": 1}}
+                    project_properties = {"金币":{"number": 1}}
                     if client_id:
                         response = requests.get(
                             f"https://api.track.toggl.com/api/v9/workspaces/{workspace_id}/clients/{client_id}",
